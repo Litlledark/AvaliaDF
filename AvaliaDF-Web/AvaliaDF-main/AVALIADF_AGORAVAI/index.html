@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tela Inicial</title>
+  <style>
+    :root {
+      --bg-yellow: #9e8807;
+      --red-primary: #E63946; /* Cor vermelha ajustada para o botão */
+      --red-hover: #C92C3E;
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais agradável */
+      background-color: var(--bg-yellow);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px; /* Padding para evitar que o conteúdo encoste nas bordas */
+      box-sizing: border-box; /* Inclui padding e border no width/height */
+    }
+
+    .splash-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      width: 100%; /* Ocupa a largura total disponível no container */
+      max-width: 400px; /* Limite máximo para telas grandes */
+    }
+
+    .logo {
+      width: 250px; /* Aumentado o tamanho da logo para dispositivos móveis */
+      max-width: 80%; /* Garante que a logo não exceda 80% da largura do pai */
+      height: auto;
+      margin-bottom: 80px; /* Espaçamento maior abaixo da logo */
+      animation: fadeInScale 1s ease-out; /* Adiciona animação de entrada */
+    }
+
+    #enterButton {
+      padding: 16px 40px; /* Aumentado padding para facilitar o toque */
+      font-size: 20px; /* Fonte maior para melhor visibilidade */
+      background-color: var(--red-primary);
+      color: white;
+      border: none;
+      border-radius: 10px; /* Mais arredondado */
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Sombra para profundidade */
+    }
+
+    #enterButton:hover {
+      background-color: var(--red-hover);
+      transform: translateY(-3px); /* Efeito de elevação */
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    #enterButton:active {
+      background-color: #A4161A; /* Cor mais escura ao clicar */
+      transform: translateY(0); /* Retorna à posição original */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Animação para a logo */
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Media Query para telas muito pequenas */
+    @media (max-width: 400px) {
+      .logo {
+        width: 180px; /* Reduz logo em telas muito pequenas */
+        margin-bottom: 50px;
+      }
+      #enterButton {
+        padding: 14px 30px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-screen">
+    <img src="img/logo.png" alt="Logo" class="logo" />
+    <button id="enterButton">Entrar</button>
+  </div>
+
+  <script>
+    document.getElementById('enterButton').addEventListener('click', function () {
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

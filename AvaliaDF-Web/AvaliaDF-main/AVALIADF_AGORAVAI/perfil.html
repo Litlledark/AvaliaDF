@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu Perfil</title>
+  <style>
+    :root {
+      --bg-yellow: #FFF3B0;
+      --red-primary: #d62828;
+      --text-dark: #333;
+      --card-bg: #fff;
+      --shadow-medium: rgba(0,0,0,0.15);
+      --red-hover: #a4161a;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-yellow);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .menu-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .menu-btn img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--red-primary);
+      background-color: white;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: white; /* Sempre branco */
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 10px;
+      width: 180px;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown a:hover {
+      background-color: #f2f2f2;
+    }
+
+    .show {
+      display: block;
+    }
+
+    .back-btn {
+      background-color: var(--red-primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 22px;
+      margin-top: 80px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 3px 6px var(--shadow-medium);
+    }
+
+    .back-btn:hover {
+      background-color: var(--red-hover);
+      transform: translateY(-2px);
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 6px 18px var(--shadow-medium);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--red-primary);
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    /* Responsivo */
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      .back-btn {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+      }
+      .card {
+        padding: 25px;
+        border-radius: 12px;
+      }
+      .profile-img {
+        width: 80px;
+        height: 80px;
+        border-width: 3px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENU TOPO -->
+  <div class="menu-container">
+    <button class="menu-btn" onclick="toggleMenu()">
+      <img src="img/user-default.png" alt="Perfil">
+    </button>
+    <div id="dropdownMenu" class="dropdown">
+      <a href="perfil.html">Meu Perfil</a>
+      <a href="configuracoes.html">Configurações</a>
+      <a href="avaliacoins.html">AvaliaCoins</a>
+    </div>
+  </div>
+
+  <!-- VOLTAR -->
+  <a class="back-btn" href="categorias.html">← Voltar para Categorias</a>
+
+  <!-- CARTÃO DE PERFIL -->
+  <div class="card">
+    <img src="img/user-default.png" alt="Perfil" class="profile-img">
+    <h1>João Silva</h1>
+    <p>Email: joao@email.com</p>
+    <p>CPF: ***.***.***-00</p>
+  </div>
+
+  <!-- JS MENU -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.closest('.menu-container')) {
+        document.getElementById("dropdownMenu").classList.remove("show");
+      }
+    }
+  </script>
+</body>
+</html>

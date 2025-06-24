@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avaliar Local</title>
+  <style>
+    :root {
+      --fundo: #FFF3B0;
+      --vermelho: #C1121F;
+      --vermelho-escuro: #8F0D18;
+      --texto: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--fundo);
+      color: var(--texto);
+    }
+
+    header {
+      background-color: var(--vermelho);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    form, #thankYouScreen {
+      background-color: var(--fundo);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--vermelho);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: var(--vermelho-escuro);
+    }
+
+    .question-step {
+      display: none;
+    }
+
+    .question-step.active {
+      display: block;
+    }
+
+    #thankYouScreen {
+      display: none;
+      text-align: center;
+    }
+
+    #thankYouScreen h2 {
+      color: var(--vermelho);
+    }
+
+    .btn.back-btn-topbar {
+      background-color: var(--vermelho);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .btn.back-btn-topbar:hover {
+      background-color: var(--vermelho-escuro);
+    }
+
+    @media (max-width: 500px) {
+      form, #thankYouScreen {
+        padding: 15px;
+        border-radius: 12px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      header {
+        font-size: 20px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Avaliar Local</header>
+  <main>
+    <form id="formAvaliacao">
+      <h2 id="nomeLocal">Avaliação</h2>
+
+      <div class="question-step active" id="step1">
+        <label for="nota">Nota (1 a 5):</label>
+        <select id="nota" required>
+          <option value="">Selecione</option>
+          <option value="1">1 - Muito ruim</option>
+          <option value="2">2 - Ruim</option>
+          <option value="3">3 - Regular</option>
+          <option value="4">4 - Bom</option>
+          <option value="5">5 - Excelente</option>
+        </select>
+
+        <label for="comentario">Comentário:</label>
+        <textarea id="comentario" required></textarea>
+      </div>
+
+      <div class="question-step" id="step2">
+        <label for="recomendacao">De 0 a 10, quanto você recomendaria?</label>
+        <select id="recomendacao" required>
+          <option value="">Selecione</option>
+          <script>
+            for (let i = 0; i <= 10; i++) {
+              document.write(`<option value="${i}">${i}</option>`);
+            }
+          </script>
+        </select>
+      </div>
+
+      <div class="question-step" id="step3">
+        <label for="atendimento">Nota para atendimento (1 a 10):</label>
+        <select id="atendimento" required>
+          <option value="">Selecione</option>
+          <script>
+            for (let i = 1; i <= 10; i++) {
+              document.write(`<option value="${i}">${i}</option>`);
+            }
+          </script>
+        </select>
+      </div>
+
+      <div class="question-step" id="step4">
+        <label for="chances">Chances de voltar a usar (1 a 5):</label>
+        <select id="chances" required>
+          <option value="">Selecione</option>
+          <option value="1">1 - Nenhuma</option>
+          <option value="2">2 - Poucas</option>
+          <option value="3">3 - Médias</option>
+          <option value="4">4 - Boas</option>
+          <option value="5">5 - Certamente</option>
+        </select>
+      </div>
+
+      <button type="button" id="nextBtn">Próxima</button>
+    </form>
+
+    <div id="thankYouScreen">
+      <h2>Obrigado pela avaliação!</h2>
+      <p>Você ganhou <strong>50 AvaliaCoins!</strong></p>
+      <a href="categorias.html" class="btn back-btn-topbar">Voltar para Categorias</a>
+    </div>
+  </main>
+
+  <script>
+    const localParam = new URLSearchParams(window.location.search).get("local");
+    document.getElementById("nomeLocal").textContent = "Avaliar: " + (localParam ? decodeURIComponent(localParam) : "Local");
+
+    const steps = document.querySelectorAll(".question-step");
+    const nextBtn = document.getElementById("nextBtn");
+    const form = document.getElementById("formAvaliacao");
+    const thankYouScreen = document.getElementById("thankYouScreen");
+
+    let current = 0;
+
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.classList.toggle("active", i === index);
+      });
+      nextBtn.textContent = index === steps.length - 1 ? "Enviar Avaliação" : "Próxima";
+    }
+
+    function validateStep() {
+      const activeStep = steps[current];
+      const inputs = activeStep.querySelectorAll("select, textarea");
+      for (const input of inputs) {
+        if (!input.value.trim()) {
+          input.style.borderColor = "red";
+          return false;
+        } else {
+          input.style.borderColor = "#ccc";
+        }
+      }
+      return true;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (!validateStep()) return;
+
+      if (current < steps.length - 1) {
+        current++;
+        showStep(current);
+      } else {
+        form.style.display = "none";
+        thankYouScreen.style.display = "block";
+      }
+    });
+
+    showStep(current);
+  </script>
+</body>
+</html>
